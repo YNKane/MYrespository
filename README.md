@@ -1,24 +1,85 @@
-# MYrespository
-taiji
+新建项目spring starter project（其实maven项目也可以 但是要自己引包）
 
-#branch3 change
+理解IoC/DI
+1.控制反转 --> 谁控制谁? 控制什么? 为何叫反转(对应于正向)?哪些方面反转了?为何需要反转?
+　　谁控制谁?  --> IoC/DI容器控制应用程序
+　　控制什么? --> IoC/DI容器控制对象本身的创建、实例化; IoC/DI容器控制对象之间的依赖关系
+　　为何叫反转(对应于正向)? --> 因为现在应用程序不能主动去获取外部资源了，而是被动等待IoC/DI容器给它注入它所需要的资源，所以称之为反转.
+　　哪些方面反转了? --> 1.创建对象 2.程序获取资源的方式反了
+　　为何需要反转? --> 1.引入IoC/DI容器过后,体系更为松散，而且管理更有序; 2.类之间真正实现了松散耦合
+2.依赖 --> 什么是依赖(按名称理解、按动词理解)? 谁依赖于谁? 为什么需要依赖? 依赖什么东西?
+　　什么是依赖(按名称理解、按动词理解)? --> 依赖(按名称理解):依赖关系;  依赖(按动词理解):依赖的动作
+　　谁依赖于谁?　--> 应用程序依赖于IoC/DI容器
+　　为什么需要依赖? --> 因为发生了反转，应用程序依赖的资源都是IoC/DI容器里面
+　　依赖什么东西? --> 应用程序依赖于IoC/DI容器,依赖IoC/DI容器为它注入所需要的资源。（比如：依赖关系）
+3.注入:谁注入于谁? 注入什么东西? 为何要注入?
+　　谁注入于谁? --> IoC/DI容器注入于应用程序
+　　注入什么东西? --> 注入应用程序需要的外部资源，比如依赖关系
+　　为何要注入? --> 因为程序要正常运行需要这些外部资源
+4.依赖注入和控制反转是同一概念吗?
+　　不是同一概念， 其实它们两个描述的是同一件事件，但是是从不同的角度来说:控制反转是从IoC/DI容器的角度；依赖注入是从应用程序的角度
+　　控制反转的描述： IoC/DI容器反过来控制应用程序，控制应用程序锁所需要的外部资源（比如：外部资源）
+　　依赖注入的描述： 应用程序依赖IoC/DI容器，依赖它注入所需要的外部资源。
+5.参与者都有哪些?
+　　IoC/DI容器、应用程序
+6.IoC/DI是什么?能做什么?怎么做?用在什么地方?
+　　IoC/DI是什么?
+　　　　IoC:就是使用IoC/DI容器反过来控制应用程序所需要的外部资源，这样的一种程序开发思想。
+　　　　DI：就是应用程序依赖IoC/DI容器来注入所需要的外部资源，这样一种程序的开发思想。
+　　能做什么? --> 松散耦合对象
+　　怎么做? --> 使用Spring框架，里面有实现好了的IoC/DI容器
+　　用在什么地方? --> 凡是程序里面需要使用外部资源的情况，都可以考虑使用IoC/DI容器
+7.什么是外部资源
+　　对于一个类来讲，所谓的外部资源，就是指在自己类的内部不能得到或实现的东西，比如说:在类里面需要读取一个配置文件，那么这个配置文件就相当于这个类的外部资源。又比如：A类里面要调用B类，那么对于A类来讲B类就是外部资源。
+8. IoC容器
+　　简单的理解就是：实现IoC思想，并提供对象创建、对象装配以及对象生命周期管理的软件就是IoC容器。
+　　对IoC的理解：
+　　　　a. 应用程序无需主动new对象，而是描述对象应该如何被创建
+　　　　b. 应用程序不需要主动装配对象之间的依赖关系,而是描述需要哪个服务，IoC容器会帮你装配，被动接受装配
+　　　　c. 主动变被动，是一种让服务消费者不直接依赖于服务提供者的组件设计方式，是一种减少类与类之间依赖的设计原则
+9.使用IoC/DI容器开发需要改变思路
+　　a. 应用程序不主动创建对象，但是要描述创建它们的方式
+　　b. 在应用程序代码中不直接进行服务的装配，但是要描述哪一个组件需要哪一项服务，由容器负责将这些装配在一起。也就是说：所有的组件都是被动的，组件初始化和专供都是由容器负责，应用程序只是在获取相应的组件后，实现应用的功能即可。
 
-#branch2 change
-
-#branch2 change second
-
-#branch2 test
-
-#branch1 change
-
-#branch change
+在spring ioc中有三种依赖注入，分别是：
+a、接口注入；
+b、setter方法注入；
+c、构造方法注入；
 
 
-#branch3 change
+Spring boot
+定制banner.txt 每次运行显示的logo（在resource里面）（想改就自己新建txt文件）
+app.setBannerMode(Banner.Mode.OFF);//关闭banner
+java -jar target/myproject-0.0.1-SNAPSHOT.jar  //命令行方式运行
 
-#master change
+热部署 修改后自动重启
 
-#master change itself
+Resource下 application.properties(也可以为application.yml)为默认的配置文件 两种都存在的情况下properties有优先级
+application.yml 里面为属性赋值需要有空格 name: str
 
-#master confilct
+可以自定义配置文件
+@PropertySource(value=”classpath:test.properties”)
+
+127.0.0.1:端口号 运行当前的web程序（localhost:端口号）
+配置文件放置的四个位置（优先级从高到低）
+1 命令行mvn package得到jar包后（jar包在target下）在 target目录下新建config文件夹 在文件夹中放配置文件
+2 直接在target文件夹下放配置文件
+3 在src/main/resource下建config文件夹
+4 直接在src/main/resource下放配置文件
+（新建file文件 自己写文件名和后缀就能添加配置文件）
+@Date（lombok）插件自动生成get set tostring hashCode构造 等方法 
+要在配置文件中加依赖
+<dependency> 	
+	<groupId>org.projectlombok</groupId> 	
+	<artifactId>lombok</artifactId> 
+	<version>1.16.20</version>
+</dependency>
+
+
+如果使用java -jar运行应用程序，则可以按如下方式启用 debug：
+$ java -jar myproject-0.0.1-SNAPSHOT.jar --debug
+
+
+Classpath ？
+
 
